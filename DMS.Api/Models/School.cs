@@ -6,7 +6,7 @@ namespace DMS.Api.Models
 	public class School
 	{
         public int SchoolId { get; set; }
-        public int SchoolName { get; set; }
+        public string? SchoolName { get; set; }
         public string? DirectorName { get; set; }
         //Navigation Properties
         public virtual List<ClassRoom> ClassRooms { get; set; } = new List<ClassRoom>();
@@ -15,4 +15,3 @@ namespace DMS.Api.Models
     }
 
 }
-

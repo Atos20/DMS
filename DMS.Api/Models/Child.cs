@@ -12,7 +12,7 @@ namespace DMS.Api.Models
 
         //Navigation
         public int ClassRoomId { get; set; }
-        public virtual ClassRoom? Classsroom { get; set; }
+        public virtual ClassRoom? ClasssRoom { get; set; }
         public virtual School? School { get; set; }
         public int SchoolId { get; set; }
         public virtual ICollection<Guardian>? Guardians { get; set; }
