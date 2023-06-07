@@ -3,9 +3,6 @@ namespace DMS.Api.Models
 {
 	public class Pantry
 	{
-		public Pantry()
-		{
-		}
 
         public int PantryId { get; set; }
         public int DiaperCount { get; set; }
@@ -21,7 +18,7 @@ namespace DMS.Api.Models
         public bool NeedsMoreSunscreen { get; set; }
         //Navigation Properties
         public virtual int ClassRoomId { get; set; }
-        public virtual ClassRoom ClassRoom { get; set; }
+        public virtual ClassRoom? ClassRoom { get; set; }
     }
 }
 

@@ -6,7 +6,7 @@ namespace DMS.Api.Models
 
 		//Navigation Properties
 		public virtual int SchoolId { get; set; }
-		public virtual School? School { get; set; }
+		public virtual School School { get; set; }
 
     }
 }
