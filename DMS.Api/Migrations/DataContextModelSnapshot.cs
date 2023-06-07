@@ -61,19 +61,15 @@ namespace DMS.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LeadBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaterialsNeeded")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ActivityId");
@@ -148,15 +144,12 @@ namespace DMS.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SchoolId")
@@ -220,15 +213,12 @@ namespace DMS.Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GuardianId"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuardianId");
@@ -395,7 +385,7 @@ namespace DMS.Api.Migrations
 
             modelBuilder.Entity("DMS.Api.Models.Child", b =>
                 {
-                    b.HasOne("DMS.Api.Models.ClassRoom", "ClassRoom")
+                    b.HasOne("DMS.Api.Models.ClassRoom", "Classsroom")
                         .WithMany("Children")
                         .HasForeignKey("ClassRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -407,7 +397,7 @@ namespace DMS.Api.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("ClassRoom");
+                    b.Navigation("Classsroom");
 
                     b.Navigation("School");
                 });
@@ -467,8 +457,7 @@ namespace DMS.Api.Migrations
 
             modelBuilder.Entity("DMS.Api.Models.Guardian", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("DMS.Api.Models.School", b =>
