@@ -1,6 +1,7 @@
-﻿
+
 using DMS.Api;
 using Microsoft.EntityFrameworkCore;
+using DMS.Api.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapSchoolControllerEndpoints();
 
 app.Run();
 
