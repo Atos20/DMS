@@ -2,6 +2,7 @@
 using DMS.Api;
 using Microsoft.EntityFrameworkCore;
 using DMS.Api.Controllers;
+using DMS.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 var app = builder.Build();
 
@@ -29,8 +32,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.MapSchoolControllerEndpoints();
 
 app.Run();
 
