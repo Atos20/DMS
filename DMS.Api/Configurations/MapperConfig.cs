@@ -10,6 +10,7 @@ namespace DMS.Api.Configurations
 		public MapperConfig()
 		{
 			CreateMap<School, SchoolDTO>().ReverseMap();
+			CreateMap<ClassRoom, ClassRoomDTO>().ReverseMap();
 		}
 	}
 }
