@@ -15,7 +15,7 @@ using DMS.Api.Contracts;
 namespace DMS.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class SchoolController : Controller
+    public class SchoolController : ControllerBase
     {
         private readonly ISchoolRepository _schoolRepository;
         private readonly IMapper _mapper;
@@ -37,7 +37,14 @@ namespace DMS.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving schools. Please try again later.");
+                var problemDetails = new ProblemDetails
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Title = "An error occurred while retrieving schools.",
+                    Detail = ex.Message,
+                };
+
+                return StatusCode(StatusCodes.Status500InternalServerError, problemDetails);
             }
 
         }

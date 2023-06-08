@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
+builder.Services.AddScoped<IClassRoomRepository, ClassRoomRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddLogging();
