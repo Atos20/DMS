@@ -3,6 +3,8 @@ using DMS.Api;
 using Microsoft.EntityFrameworkCore;
 using DMS.Api.Controllers;
 using DMS.Api.Configurations;
+using DMS.Api.Contracts;
+using DMS.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
 
 var app = builder.Build();
 
