@@ -8,6 +8,7 @@ using DMS.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using DMS.Api.DTOs;
+using DMS.Api.Contracts;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,15 +17,13 @@ namespace DMS.Api.Controllers
     [Route("api/[controller]")]
     public class SchoolController : Controller
     {
-        private readonly ILogger<SchoolController> _logger;
-        private readonly DataContext _context;
+        private readonly ISchoolRepository _schoolRepository;
         private readonly IMapper _mapper;
 
-        public SchoolController(DataContext context, IMapper mapper, ILogger<SchoolController> logger)
+        public SchoolController(IMapper mapper, ISchoolRepository schoolRepository)
         {
-            _context = context;
+            _schoolRepository = schoolRepository;
             _mapper = mapper;
-            _logger = logger;
         }
         // GET: api/values
         // should return the information about the Schools register, we need just the  ID and Name
@@ -33,15 +32,11 @@ namespace DMS.Api.Controllers
         {
             try
             {
-                var schoolsDTO = _mapper.Map<List<SchoolDTO>>(await _context.School.ToListAsync());
+                var schoolsDTO = _mapper.Map<List<SchoolDTO>>(await _schoolRepository.GetAllAsync());
                 return Ok(schoolsDTO);
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it as needed
-                _logger.LogError(ex, "An error occurred while retrieving schools.");
-
-                // Return an appropriate error response
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving schools. Please try again later.");
             }
 

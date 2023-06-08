@@ -9,9 +9,9 @@ namespace DMS.Api.Repositories
 	public class SchoolRepository: GenericRepository<School>, ISchoolRepository
 	{
         private readonly DataContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<SchoolRepository> _logger;
 
-        public SchoolRepository(DataContext context, ILogger logger) : base(context, logger)
+        public SchoolRepository(DataContext context, ILogger<SchoolRepository> logger) : base(context, logger)
 		{
             _context = context;
             _logger = logger;
