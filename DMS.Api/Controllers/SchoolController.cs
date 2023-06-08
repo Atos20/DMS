@@ -28,7 +28,7 @@ namespace DMS.Api.Controllers
         // GET: api/values
         // should return the information about the Schools register, we need just the  ID and Name
         [HttpGet]
-        public async Task<ActionResult<List<School>>> GetSchools()
+        public async Task<ActionResult<List<SchoolDTO>>> GetSchools()
         {
             try
             {
