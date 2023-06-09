@@ -6,7 +6,7 @@ namespace DMS.Api.Contracts
 {
 	public interface IClassRoomRepository : IGenericRepository<ClassRoom>
 	{
-		Task<IEnumerable<ClassRoom>> GetClassroomsById(int? id);
+		Task<ClassRoom?> GetClassroomDetails(int? id);
 	}
 }
 

@@ -24,13 +24,13 @@ namespace DMS.Api.Controllers
         }
         // GET: api/Classroom/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ClassRoomDTO>>>GetClassroomsBySchoolId(int id)
+        public async Task<ActionResult<ClassRoomDTO>>GetClassroomDetails(int id)
         {
             try
             {
-                var classrooms = await _classRoomRepository.GetClassroomsById(id);
-                var classroomsDTO = _mapper.Map<List<ClassRoomDTO>>(classrooms);
-                return Ok(classroomsDTO);
+                var classroom = await _classRoomRepository.GetClassroomDetails(id);
+                var classroomDTO = _mapper.Map<ClassRoomDTO>(classroom);
+                return Ok(classroomDTO);
             }
             catch (Exception ex)
             {

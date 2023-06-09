@@ -1,6 +1,7 @@
 ﻿using System;
 using DMS.Api.Contracts;
 using DMS.Api.Models;
+using Microsoft.CodeAnalysis.Completion;
 using Microsoft.EntityFrameworkCore;
 
 namespace DMS.Api.Repositories
@@ -17,18 +18,37 @@ namespace DMS.Api.Repositories
         }
 
         /// <summary>
-        ///  Gets classrooms for a given school
+        ///  Gets classroom details 
         /// </summary>
-        /// <param name="id">Corresponds the School ID associated with each classroom</param>
+        /// <param name="id">This ID should be the ClassRoomId!!</param>
         /// <returns></returns>
-        public async Task<IEnumerable<ClassRoom>> GetClassroomsById(int? id)
+        public async Task<ClassRoom?> GetClassroomDetails(int? id)
         {
             try
             {
-                var classrooms = await _context.ClassRoom
-                    .Where(cr => cr.SchoolId == id)
-                    .ToListAsync();
-                return classrooms;
+                var query = from classroom in _context.ClassRoom
+                     join child in _context.Child on classroom.ClassRoomId equals child.ClassRoomId into children
+                     where classroom.ClassRoomId == id
+                     select new ClassRoom
+                     {
+                         ClassRoomId = classroom.ClassRoomId,
+                         ClassRoomName = classroom.ClassRoomName,
+                         CourseName = classroom.CourseName,
+                         ChildCareWorker = classroom.ChildCareWorker,
+                         ChildrenLimit = classroom.ChildrenLimit,
+                         StartAge = classroom.StartAge,
+                         EndAge = classroom.EndAge,
+                         Children = children.ToList()
+                     };
+
+                ClassRoom? cr = await query.FirstOrDefaultAsync();
+
+                if (cr != null)
+                {
+                  return cr;
+                }
+
+                return new ClassRoom();
             }
             catch (Exception ex)
             {
