@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using DMS.Api.DTOs;
 using DMS.Api.Contracts;
+using DMS.Api.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +26,7 @@ namespace DMS.Api.Controllers
             _schoolRepository = schoolRepository;
             _mapper = mapper;
         }
-        // GET: api/values
+        // GET: api/ClassRoom
         // should return the information about the Schools register, we need just the  ID and Name
         [HttpGet]
         public async Task<ActionResult<List<SchoolDTO>>> GetSchools()
@@ -49,11 +50,28 @@ namespace DMS.Api.Controllers
 
         }
 
-        // GET api/values/5
+        // GET: api/Classroom/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<IEnumerable<ClassRoomDTO>>> GetClassroomsBySchoolId(int id)
         {
-            return "value";
+            try
+            {
+                var classrooms = await _schoolRepository.GetClassroomsBySchoolId(id);
+                var classroomsDTO = _mapper.Map<List<ClassRoomDTO>>(classrooms);
+                return Ok(classroomsDTO);
+            }
+            catch (Exception ex)
+            {
+                var problemDetails = new ProblemDetails
+                {
+                    Status = StatusCodes.Status500InternalServerError,
+                    Title = "An error occurred while retrieving schools.",
+                    Detail = ex.Message,
+                };
+
+                return StatusCode(StatusCodes.Status500InternalServerError, problemDetails);
+            }
+
         }
 
         // POST api/values
