@@ -1,4 +1,6 @@
 ﻿using System;
+using DMS.Api.Models;
+
 namespace DMS.Api.DTOs
 {
 	public class ClassRoomDTO
@@ -14,6 +16,7 @@ namespace DMS.Api.DTOs
         public int ChildrenLimit { get; set; }
         public int StartAge { get; set; }
         public int EndAge { get; set; }
+        public virtual ICollection<Child>? Children { get; set; }
     }
 }
 
