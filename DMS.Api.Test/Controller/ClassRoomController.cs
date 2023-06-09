@@ -22,27 +22,27 @@ namespace DMS.Api.Test.Controller
         }
 
         [Fact]
-        public void GetClassRoomsBySchoolId_ReturnsOKResponse()
+        public void GetClassRoomDetails_ReturnsOKResponse()
         {
             // Arrange
 
             // Create a list of schools to be returned by the repository
-            var classrooms = A.Fake<ICollection<ClassRoom>>();
-            var classroomsDTOs = A.Fake<List<ClassRoomDTO>>();
+            var classroom = A.Fake<ClassRoom>();
+            var classroomsDTO = A.Fake<ClassRoomDTO>();
             // Fake mapper
-            A.CallTo(() => _mapperFake.Map<List<ClassRoomDTO>>(classrooms)).Returns(classroomsDTOs);
+            A.CallTo(() => _mapperFake.Map<ClassRoomDTO>(classroom)).Returns(classroomsDTO);
 
             // Configure the fake repository to return the list of schools
-            A.CallTo(() => _classRoomRepositoryFake.GetClassroomsById(1)).Returns(classrooms);
+            A.CallTo(() => _classRoomRepositoryFake.GetClassroomDetails(1)).Returns(classroom);
 
             // Create an instance of the controller and pass the fake dependencies
             var classRoomController = new DMS.Api.Controllers.ClassRoomController(_mapperFake, _classRoomRepositoryFake);
 
             // Act
-            var response = classRoomController.GetClassroomsBySchoolId(1);
+            var response = classRoomController.GetClassroomDetails(1);
             // Assert
             response.Should().NotBeNull();
-            response.Result.Should().BeOfType<ActionResult<IEnumerable<ClassRoomDTO>>>();
+            response.Result.Should().BeOfType<ActionResult<ClassRoomDTO>>();
             response.Result.Result.Should().BeOfType<OkObjectResult>();
             response.Result.Result.As<OkObjectResult>().StatusCode.Should().Be(200);
         }
